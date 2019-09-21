@@ -112,21 +112,21 @@ def welcome():
     # results2 = session.query(inspections.name, inspections.license_number).all()
 
     # example on what you can do with queries. There's also .filter
-    """
-    session.query(Invoices.BillingPostalCode, func.sum(Items.UnitPrice * Items.Quantity)).\
-    filter(Invoices.InvoiceId == Items.InvoiceId).\
-    filter(Invoices.BillingCountry == 'USA').\
-    group_by(Invoices.BillingPostalCode).\
-    order_by(func.sum(Items.UnitPrice * Items.Quantity).desc()).all()
-    """
+    # """
+    # session.query(Invoices.BillingPostalCode, func.sum(Items.UnitPrice * Items.Quantity)).\
+    # filter(Invoices.InvoiceId == Items.InvoiceId).\
+    # filter(Invoices.BillingCountry == 'USA').\
+    # group_by(Invoices.BillingPostalCode).\
+    # order_by(func.sum(Items.UnitPrice * Items.Quantity).desc()).all()
+    # """
 
     session.close()
-
+    all_names = list(np.ravel(results))
     # Convert list of tuples into normal list
     # all_names = list(np.ravel(results))
 
-    return jsonify(results)
-
+    print(results)
+    return (all_names)
 
 if __name__ == '__main__':
     app.run(debug=True)
