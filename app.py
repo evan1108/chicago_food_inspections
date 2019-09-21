@@ -33,7 +33,7 @@ database = "chi_restaurant_data.sqlite"
 
 # calls to functions to create the dataframes
 google_reviews_df = pd.read_csv("google_reviews.csv")
-chi_inspections_df = pd.read_csv("inspection_data_2019")
+chi_inspections_df = pd.read_csv("inspection_data_2019_v2.csv")
 
 # create a database connection
 conn = create_connection(database)
@@ -46,9 +46,9 @@ with conn:
     # need to make the columns of the sql tables match the dataframe columns - data type and order
     inspections_table = """CREATE TABLE IF NOT EXISTS inspections (
                                 id integer PRIMARY KEY,
-                                address text NOT NULL,
-                                aka_name text NOT NULL,
-                                city text NOT NULL,
+                                address text,
+                                aka_name text,
+                                city text,
                                 dba_name text,
                                 facility_type text,
                                 inspection_date text,
@@ -93,25 +93,25 @@ with conn:
     Base.prepare(engine, reflect=True)
 
     inspector = inspect(engine)
-    print(inspector.get_table_names())
-    print(Base.classes.keys())
 
     # Save reference to the table
     Reviews = Base.classes.reviews
-    # inspections = Base.classes.inspections
+    Inspections = Base.classes.inspections
 
     # merge tables
-    # inner_join = """select reviews.name, stars, lat, long, inspections.license_number
-    #             from reviews
-    #             join inspections on inspections.license_number = reviews.license_number;
-    #             """
+    inner_join = """select aka_name, latitude, longitude, license_, first_violation, dba_name, facility_type, inspection_type,
+                reviews.Average_of_Ratings, reviews.Data_license
+                from inspections
+                join reviews on Data_license = license_;
+                """
 
-    # merged_table = cur.execute(inner_join)
+    joined_results = cur.execute(inner_join)
+    
+    for row in joined_results:
+        print(row)
 
-
-#################################################
-# Database Setup, DataFrame creation
-#################################################
+    print(inspector.get_table_names())
+    print(Base.classes.keys())
 
 #################################################
 # Flask Routes
