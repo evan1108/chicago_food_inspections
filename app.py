@@ -20,7 +20,7 @@ database = "chi_restaurant_data.sqlite"
 
 # calls to functions to create the dataframes
 google_reviews_df = get_google_data()
-chi_data_df = get_chi_data()
+chi_inspections_df = get_chi_data()
 
 # create a database connection
 conn = create_connection(database)
@@ -54,7 +54,7 @@ with conn:
 
     # populate the sql tables with the df data
     google_reviews_df.to_sql('reviews', con=engine, if_exists='replace', index=False)
-    chi_data_df.to_sql('inspections', con=engine, if_exists='replace', index=False)
+    chi_inspections_df.to_sql('inspections', con=engine, if_exists='replace', index=False)
 
     # reflect an existing database into a new model
     Base = automap_base()
@@ -65,6 +65,15 @@ with conn:
     # Save reference to the table
     reviews = Base.classes.reviews
     inspections = Base.classes.inspections
+
+    # merge tables
+    inner_join = """select reviews.name, stars, lat, long, inspections.license_number
+                from reviews
+                join inspections on inspections.license_number = reviews.license_number;
+                """
+
+    merged_table = cur.execute(inner_join)
+
 
 #################################################
 # Database Setup, DataFrame creation
@@ -88,7 +97,7 @@ def get_chi_data():
 
     # CODE HERE TO CREATE DF FROM CHI DATA PORTAL
 
-    return chi_inspection_df
+    return chi_inspections_df
 
 def get_google_data():
 
