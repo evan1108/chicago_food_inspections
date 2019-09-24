@@ -7,11 +7,13 @@ from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func, inspect
 from flask import Flask, jsonify, render_template
+from flask_cors import CORS
 
 #################
 # Flask Setup
 #################
 app = Flask(__name__)
+CORS(app)
 
 def create_connection(db_file):
     """ create a database connection to the SQLite database
@@ -45,6 +47,13 @@ def jsondata():
     with conn:
 
         cur = conn.cursor()
+
+
+        drop_inspections_table = "DROP TABLE IF EXISTS inspections"
+        cur.execute(drop_inspections_table)
+
+        drop_reviews_table = "DROP TABLE IF EXISTS reviews"
+        cur.execute(drop_reviews_table)
 
         # need to make the columns of the sql tables match the dataframe columns - data type and order
         inspections_table = """CREATE TABLE IF NOT EXISTS inspections (
@@ -102,7 +111,7 @@ def jsondata():
         Inspections = Base.classes.inspections
 
         # merge tables
-        inner_join = """select aka_name, latitude, longitude, license_, first_violation, dba_name, facility_type, inspection_type,
+        inner_join = """select aka_name, inspection_id, latitude, longitude, license_, first_violation, dba_name, facility_type, inspection_type,
                     reviews.Average_of_Ratings, reviews.Data_license
                     from inspections
                     join reviews on Data_license = license_;
@@ -122,12 +131,6 @@ def jsondata():
             data["results"].append(row)
 
         return jsonify(data)
-
-
-
-
-
-
 
 
 #################################################
