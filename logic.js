@@ -30,9 +30,7 @@ d3.json(url).then((data) => {
     const stars = response[9];
 
     if (lat){
-      const marker = markers.addLayer(L.marker([lat, long]));
-      marker.bindPopup(`<h1>${name}</h1><hr/><h3>${stars}</h3>`);
-      markers.addLayer(marker);
+      L.marker([lat, long]).addTo(markers).bindPopup(`<h1>${name}</h1><hr/><h3>${stars}</h3>`);
     }
   });
   
