@@ -32,30 +32,83 @@
 
   </head>
   <body>
+     
+        <h2 id="header">
+          <strong>City of Chicago Food Inspections and Google User Reviews</strong>
+          <small class="text-muted">Jan 2019 - Present</small>
+          <p><small> Evan Stroh, Prinssi Schultz, and Stephanie Burr </small></p>
+        </h2>
     
-    <h1>City of Chicago Food Inspections and Google User Reviews</h1>
 
-    <p>This information is derived from inspections of restaurants and other food establishments in Chicago from January 1, 2019 
+    <p>The data presented below was collected from the City of Chicago Data portal from 
+      <a href=https://data.cityofchicago.org/Health-Human-Services/Food-Inspections/4ijn-s7e5 target="_blank">the following location</a>.
+      This information is derived from inspections of restaurants and other food establishments in Chicago from January 1, 2019 
       to the present. Inspections are performed by staff from the Chicago Department of Public Health’s Food Protection Program 
       using a standardized procedure. The results of the inspection are inputted into a database, 
-      then reviewed and approved by a State of Illinois Licensed Environmental Health Practitioner (LEHP).</p>
+      then reviewed and approved by a State of Illinois Licensed Environmental Health Practitioner (LEHP). </p>
     
-    <p>This data is paired with Google User Reviews from Google Places.</p>
-
-    <h3>Map of Restaurant Violations and Google Reviews</h3>
-    <div id="map"></div>
-
-    <h3>Quick Stats</h3>
-    <div id="stats_container">
-      <div class="ct-chart ct-golden-section" id="bar"></div>
-      <div class="ct-chart ct-golden-section" id="pie"></div>
-      <div class="ct-chart ct-golden-section" id="scatter"></div>
-    </div>
-
-    <div id="plot"></div>
-    <!-- <script src="plots.js"></script> -->
-    <script type="text/javascript" src="static/js/config.js"></script>
-    <script type="text/javascript" src="static/js/logic.js"></script>
+    <p>This data is paired with Google User Reviews from Google Places. To learn more about data available through Google Places, 
+      visit <a href=https://developers.google.com/places/web-service/intro target="_blank">the following location</a>.
+    </p>
 
   </body>
+
+  <body>
+	
+    <div class="container">
+			<div class="row m-b-1"> <!-- row map -->
+				<div class="col-xs-12">
+					<div class="card shadow">
+            <h4 class="card-header">Map of Restaurant Violations and Google Reviews </h4>
+            <p>CHART DESCRIPTION.</p>
+						<div class="card-block">
+              <div id="map"></div>
+						</div>
+					</div>
+				</div>
+			</div> <!-- row map -->
+
+			<div class="row m-b-1">  <!-- row plot1 -->
+				<div class="col-lg-6">
+					<div class="card shadow">
+            <h4 class="card-header">CHART TITLE</h4>
+            <p>CHART DESCRIPTION.</p>
+						<div class="card-block">
+              <div id="plot1"></div>
+						</div>
+					</div>
+				</div> 
+      </div> <!-- row plot1 -->
+
+        <div class="row m-b-1"> <!-- row plot2 -->
+          <div class="col-lg-6">
+            <div class="card shadow">
+              <h4 class="card-header">CHART TITLE</h4>
+              <p>CHART DESCRIPTION.</p>
+              <div class="card-block">
+                <div id="plot2"></div>
+              </div>
+            </div>
+          </div> 
+        </div> <!-- row plot2 -->
+
+        <div class="row m-b-1"> <!-- row plot3 -->
+          <div class="col-lg-6">
+            <div class="card shadow">
+              <h4 class="card-header">CHART TITLE</h4>
+              <p>CHART DESCRIPTION.</p>
+              <div class="card-block">
+                <div id="plot3"></div>
+              </div>
+            </div>
+          </div> 
+        </div> <!-- row plot3 -->
+    
+    <!-- Scripts for CONFIG.JS & LOGIC.JS -->
+    <script type="text/javascript" src="static/js/config.js"></script>
+    <script type="text/javascript" src="static/js/logic.js"></script>
+    
+  </div> <!-- container -->
+	</body>
 </html>
+
