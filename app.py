@@ -75,7 +75,9 @@ def jsondata():
                                     state text,
                                     violations blob,
                                     zip integer,
-                                    first_violation text
+                                    first_violation text,
+                                    avg_violations real,
+                                    times_inspected integer
                                 );"""
 
         cur.execute(inspections_table)
@@ -112,7 +114,7 @@ def jsondata():
 
         # merge tables
         inner_join = """select aka_name, inspection_id, latitude, longitude, license_, first_violation, dba_name, facility_type, inspection_type,
-                    reviews.Average_of_Ratings, reviews.Data_license
+                    reviews.Average_of_Ratings, reviews.Data_license, avg_violations, times_inspected
                     from inspections
                     join reviews on Data_license = license_;
                     """
